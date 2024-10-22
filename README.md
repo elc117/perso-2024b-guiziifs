@@ -1,0 +1,3 @@
+## Bibliotecas Utilizadas
+
+- Data.Csv 
