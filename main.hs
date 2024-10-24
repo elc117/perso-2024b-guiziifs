@@ -5,6 +5,7 @@ import Network.Wai.Middleware.RequestLogger (logStdoutDev, logStdout)
 import System.Random (randomRIO, Random (random))
 import Control.Monad.IO.Class (liftIO)
 import qualified  Data.Text.Lazy as TL
+import Network.Wai.Middleware.Static (staticPolicy, addBase)
 
 -- funcao para carregar os filmes do arquivo
 loadFile :: FilePath -> IO [String]
@@ -33,10 +34,13 @@ main = do
     -- inicia servidor Web
     scotty 3000 $ do
         middleware logStdoutDev
+        middleware $ staticPolicy (addBase "static")
         
         get "/" $ do
             html $
-                "<html><body>" <>
+                "<html><head>" <>
+                "<link rel='stylesheet' type='text/css' href='/style.css'>"<>
+                "</head><body>" <>
                 "<h1>Escolha uma recomendação: </h1>" <> 
                 "<form action='/random-movie' method ='get'>" <>
                 "<button type='submit'>Recomendar um filme</button>" <>
@@ -49,19 +53,39 @@ main = do
                 "</form>" <>
                 "</body></html>"
 
-        -- Rota para obter uma musica aleatorio
+
+        -- Rota para obter uma música aleatória
         get "/random-song" $ do
             musicaIO <- liftIO $ randomFile songs
-            text $ "Musica Aleatoria: " <> TL.pack musicaIO 
+            html $
+                "<html><head>" <>
+                "<link rel='stylesheet' type='text/css' href='/style.css'>" <>
+                "</head><body>" <>
+                "<div class='recommendation-container'>" <>
+                "<h3>Música Recomendada: " <> TL.pack musicaIO <> "</h3>" <>
+                "<a href='/'>Voltar</a>" <>
+                "</div></body></html>"
 
-        -- Rota para obter um filme aleatorio
+        -- Rota para obter um filme aleatório
         get "/random-movie" $ do
             filmeIO <- liftIO $ randomFile movies
-            text $ "Filme Aleatório: " <> TL.pack filmeIO
+            html $
+                "<html><head>" <>
+                "<link rel='stylesheet' type='text/css' href='/style.css'>" <>
+                "</head><body>" <>
+                "<div class='recommendation-container'>" <>
+                "<h3>Filme Recomendado: " <> TL.pack filmeIO <> "</h3>" <>
+                "<a href='/'>Voltar</a>" <>
+                "</div></body></html>"
 
-        -- Rota para obter uma serie aleatória
+        -- Rota para obter uma série aleatória
         get "/random-serie" $ do
             serieIO <- liftIO $ randomFile series
-            text $ "Serie Aleatória: " <> TL.pack serieIO
-
-        
+            html $
+                "<html><head>" <>
+                "<link rel='stylesheet' type='text/css' href='/style.css'>" <>
+                "</head><body>" <>
+                "<div class='recommendation-container'>" <>
+                "<h3>Série Recomendada: " <> TL.pack serieIO <> "</h3>" <>
+                "<a href='/'>Voltar</a>" <>
+                "</div></body></html>"
