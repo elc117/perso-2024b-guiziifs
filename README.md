@@ -1,3 +1,2 @@
 ## Bibliotecas Utilizadas
 
-- Data.Csv 
