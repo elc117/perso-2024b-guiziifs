@@ -2,6 +2,7 @@
 
 ## Identificação
 **Nome:** Guilherme Fereira da Silva
+
 **Curso:** Ciência da Computação
 
 ## Objetivo
@@ -31,6 +32,7 @@ Assim, a conversão de texto se dá pelo uso da bibliotexa `Data.Text.Lazy`, sub
 3. **Mistura de Ferramentas diferentes**: Durante a execução do projeto, viu-se a necessidade de uma interface para o usuário, Logo, em determinado ponto do projeto, o código em Haskell estava uma bagunça por misturar HTML nas chamadas de rotas. Assim, a modularização em arquivos que armazenariam os templates HTML foram a solução ideal para manter o código mais legível.
 
 ## Resultado Final
+Segue abaixo um curto vídeo demonstrando as funcionalidades. 
 
 ![example](video/animation.gif)
 
